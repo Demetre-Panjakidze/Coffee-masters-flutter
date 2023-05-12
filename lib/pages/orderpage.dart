@@ -3,23 +3,34 @@ import 'package:flutter/material.dart';
 import '../datamanager.dart';
 import '../datamodel.dart';
 
-class OrderPage extends StatelessWidget {
+class OrderPage extends StatefulWidget {
   final DataManager dataManager;
   const OrderPage({super.key, required this.dataManager});
 
   @override
+  State<OrderPage> createState() => _OrderPageState();
+}
+
+class _OrderPageState extends State<OrderPage> {
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: dataManager.cart.length,
-      itemBuilder: (context, index) {
-        var item = dataManager.cart[index];
-        return OrderItem(
-            item: item,
-            onRemove: (product) {
-              dataManager.cartRemove(product);
-            });
-      },
-    );
+    if (widget.dataManager.cart.isEmpty) {
+      return const Text("Your order page is empty");
+    } else {
+      return ListView.builder(
+        itemCount: widget.dataManager.cart.length,
+        itemBuilder: (context, index) {
+          var item = widget.dataManager.cart[index];
+          return OrderItem(
+              item: item,
+              onRemove: (product) {
+                setState(() {
+                  widget.dataManager.cartRemove(product);
+                });
+              });
+        },
+      );
+    }
   }
 }
 

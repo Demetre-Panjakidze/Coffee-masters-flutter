@@ -5,6 +5,8 @@ class OffersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    if (size.width > 500) {}
     return ListView(
       children: const [
         Offer(
@@ -56,6 +58,7 @@ class Offer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: 300,
       height: 150,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
